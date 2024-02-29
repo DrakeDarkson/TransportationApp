@@ -1,0 +1,33 @@
+.pageHeader {
+    width: 100%;
+    height: 40px;
+    background-color: rgb(20, 20, 20);
+}
+
+.userHeader {
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: whitesmoke;
+    text-align: right;
+    margin: 13px 0px;
+    float: right;
+}
+
+.userImage {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: whitesmoke; 
+    cursor: pointer; 
+    margin: 5px 5px;
+    float: right;
+}
+
+.pageBody {
+    background-color: rgb(85, 85, 85);
+}
+
+.inputLocation {
+    background-color: whitesmoke;
+    margin: 5px 5px;
+}

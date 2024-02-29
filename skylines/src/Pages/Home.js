@@ -1,11 +1,12 @@
 import React from "react";
-import "../Home.css";
+import Header from "../components/Header";
+import Body from "../components/Body";
 
 function Home() {
     return (
         <>
-            <h1>SEnha</h1>
-            <input type="text" placeholder="digite aqui" className="inputH1"/>
+            <Header />
+            <Body />
         </>
     )
 }
