@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import MapImage from "../Images/Map_placeholder.png";
 import "../css/reset.css"
 import "../css/index.css"
@@ -28,6 +29,7 @@ function Home() {
                     <img src={MapImage} className="mapExhibition" alt="Mapa de rotas"/>
                 </div>
             </body>
+            <Footer />
         </>
     )
 }

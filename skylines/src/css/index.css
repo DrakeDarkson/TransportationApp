@@ -38,6 +38,7 @@
 
 .menu {
     width: 25%;
+    border: 2px solid rgb(31, 31, 31);
     border-radius: 20px;
     margin: 5%;
     padding: 0px 10px 10px 10px;
@@ -47,24 +48,12 @@
 
 .map {
     width: 55%;
+    border: 2px solid rgb(31, 31, 31);
     border-radius: 20px;
     margin: 5%;
     padding: 10px;
     background-color: whitesmoke;
     float: right;
-}
-
-@media (max-width: 767px) {
-    .menu {
-      width: 80%;
-      margin: 5% auto;
-      float: none;
-    }
-    .map {
-        width: 80%;
-        margin: 5% auto;
-        float: none;
-    }
 }
 
 .mapExhibition {
@@ -87,5 +76,48 @@
 .btn-secondary {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
     display: block;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }
+
+.menuLogin {
+    width: 20%;
+    border: 2px solid rgb(31, 31, 31);
+    border-radius: 20px;
+    margin: 5% auto;
+    padding: 0px 10px 10px 10px;
+    background-color: whitesmoke;
+}
+
+.loginTitle {
+    font-size: larger;
+    margin: 10px auto;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .menu {
+      width: 80%;
+      margin: 5% auto;
+      float: none;
+    }
+    .map {
+        width: 80%;
+        margin: 5% auto;
+        float: none;
+    }
+    .menuLogin {
+        width: 80%;
+        margin: 5% auto;
+      }
 }
