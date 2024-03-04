@@ -1,20 +1,29 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Fragment } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import Home from "../Pages/Home";
+import Signin from "../Pages/Signin";
+import Signup from "../Pages/Signup";
 
-import Home from '../Pages/Home'
-import Login from '../Pages/Login'
-import Register from '../Pages/Register'
+const Private = ({ Item }) => {
+  const { signed } = useAuth();
 
-function AppRouter() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-            </Routes>
-        </BrowserRouter>
-    );
-}
+  return signed ? <Item /> : <Signin />;
+};
 
-export default AppRouter
+const RoutesApp = () => {
+  return (
+    <BrowserRouter>
+      <Fragment>
+        <Routes>
+          <Route exact path="/home" element={<Private Item={Home} />} />
+          <Route path="/" element={<Signin />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route path="*" element={<Signin />} />
+        </Routes>
+      </Fragment>
+    </BrowserRouter>
+  );
+};
+
+export default RoutesApp;

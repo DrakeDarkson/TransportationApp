@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-import "../css/reset.css";
-import "../css/index.css";
 
 function Home() {
+  const { signout } = useAuth();
+  const navigate = useNavigate();
+
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [response, setResponse] = useState(null);
@@ -73,7 +76,7 @@ function Home() {
           </button>
 
           <h2 className="menuTitle">Melhores Opções</h2>
-          <button className="btn btn-primary">
+          <button className="btn btn-primary" onClick={() => [signout(), navigate("/")]}>
             +
           </button>
 

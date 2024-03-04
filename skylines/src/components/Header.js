@@ -1,6 +1,3 @@
-import "../css/reset.css"
-import "../css/index.css"
-
 const username = "Usuário 1"
 
 function Header() {
