@@ -1,9 +1,9 @@
-import React from "react";
-import * as C from "./styles";
+import "./styles.css";
 
 const Input = ({ type, placeholder, value, onChange }) => {
   return (
-    <C.Input
+    <input
+      className="input"
       value={value}
       onChange={onChange}
       type={type}

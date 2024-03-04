@@ -1,3 +1,5 @@
+import "./styles.css";
+
 const username = "Usuário 1"
 
 function Header() {

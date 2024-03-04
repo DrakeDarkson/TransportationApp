@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import * as C from "./styles";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import "./styles.css";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 import Footer from "../../components/Footer";
 
 const Signup = () => {
@@ -16,7 +16,7 @@ const Signup = () => {
   const { signup } = useAuth();
 
   const handleSignup = () => {
-    if (!email | !emailConf | !senha) {
+    if (!email || !emailConf || !senha) {
       setError("Preencha todos os campos");
       return;
     } else if (email !== emailConf) {
@@ -31,14 +31,14 @@ const Signup = () => {
       return;
     }
 
-    alert("Usuário cadatrado com sucesso!");
+    alert("Usuário cadastrado com sucesso!");
     navigate("/");
   };
 
   return (
-    <C.Container>
-      <C.Content>
-      <C.Label>Cadastro</C.Label>
+    <div className="container">
+      <div className="content">
+        <label className="label">Cadastro</label>
         <Input
           type="email"
           placeholder="Digite seu E-mail"
@@ -57,17 +57,17 @@ const Signup = () => {
           value={senha}
           onChange={(e) => [setSenha(e.target.value), setError("")]}
         />
-        <C.labelError>{error}</C.labelError>
+        <label className="labelError">{error}</label>
         <Button Text="Inscrever-se" onClick={handleSignup} />
-        <C.LabelSignin>
+        <div className="labelSignin">
           Já tem uma conta?
-          <C.Strong>
-            <Link to="/">&nbsp;Entre</Link>
-          </C.Strong>
-        </C.LabelSignin>
-      </C.Content>
+          <strong>
+            <Link to="/" className="linkStyle">&nbsp;Entre</Link>
+          </strong>
+        </div>
+      </div>
       <Footer />
-    </C.Container>
+    </div>
   );
 };
 

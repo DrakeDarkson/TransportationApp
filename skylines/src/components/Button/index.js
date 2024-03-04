@@ -1,11 +1,10 @@
-import React from "react";
-import * as C from "./styles";
+import "./styles.css";
 
 const Button = ({ Text, onClick, Type = "button" }) => {
   return (
-    <C.Button type={Type} onClick={onClick}>
+    <button className="button" type={Type} onClick={onClick}>
       {Text}
-    </C.Button>
+    </button>
   );
 };
 

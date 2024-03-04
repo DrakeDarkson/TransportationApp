@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import "./styles.css";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer"
 
 function Home() {
   const { signout } = useAuth();
@@ -12,7 +13,6 @@ function Home() {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [response, setResponse] = useState(null);
-  // API Key: AIzaSyB6PkQch27zMLfODrDcZFw2gYsDw_Fs6ng
 
   const mapContainerStyle = {
     width: '100%',
