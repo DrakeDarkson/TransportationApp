@@ -1,0 +1,13 @@
+/* Responsividade para celulares */
+@media (max-width: 767px) {
+    .menu {
+      width: 80%;
+      margin: 5% auto;
+      float: none;
+    }
+    .map {
+        width: 80%;
+        margin: 5% auto;
+        float: none;
+    }
+}
