@@ -1,13 +1,16 @@
 /* Responsividade para celulares */
-@media (max-width: 767px) {
+@media (max-width: 667px) {
     .menu {
       width: 80%;
-      margin: 5% auto;
+      margin: 15% auto;
       float: none;
     }
     .map {
         width: 80%;
         margin: 5% auto;
         float: none;
+    }
+    .logo {
+      margin: 0px;
     }
 }

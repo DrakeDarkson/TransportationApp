@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import "./styles.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer"
+import backgroundImage from "../../images/icons/transport_car_icon.png";
 
 function Home() {
-  const { signout } = useAuth();
-  const navigate = useNavigate();
 
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -71,13 +69,13 @@ function Home() {
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
           />
-          <button className="btn btn-primary" onClick={onButtonClick}>
-            +
+          <button className={`btn ${origin && destination ? 'btn-secondary-ready' : 'btn-secondary'}`} onClick={onButtonClick}>
+            Criar Rota
           </button>
 
           <h2 className="menuTitle">Melhores Opções</h2>
-          <button className="btn btn-primary" onClick={() => [signout(), navigate("/")]}>
-            +
+          <button className="btn btn-primary">
+            <img src={backgroundImage} alt="car" className="icon"/>
           </button>
 
           <h2 className="menuTitle">Tempo Estimado / Preço</h2>

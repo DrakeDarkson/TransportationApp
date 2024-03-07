@@ -5,6 +5,7 @@ import "./styles.css";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Footer from "../../components/Footer";
+import backgroundImage from "../../images/icons/Transportation_icon.png";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -37,6 +38,9 @@ const Signup = () => {
 
   return (
     <div className="container">
+      <header className="pageHeader">
+        <img src={backgroundImage} alt="logo" className="logo" />
+      </header><br/><br/><br/><br/>
       <div className="content">
         <label className="label">Cadastro</label>
         <Input

@@ -45,3 +45,18 @@
   text-decoration: none;
   color: #013fe9;
 }
+
+.logo {
+  width: 150px;
+  margin: 100px;
+}
+
+.pageHeader {
+  background-color: rgb(20, 20, 20);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}

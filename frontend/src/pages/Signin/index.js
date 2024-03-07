@@ -5,6 +5,7 @@ import "./styles.css";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Footer from "../../components/Footer";
+import backgroundImage from "../../images/icons/Transportation_icon.png";
 
 const Signin = () => {
   const { signin } = useAuth();
@@ -32,6 +33,9 @@ const Signin = () => {
 
   return (
     <div className="container">
+      <header className="pageHeader">
+        <img src={backgroundImage} alt="logo" className="logo" />
+      </header>
       <div className="content">
         <label className="label">LOGIN</label>
         <Input
