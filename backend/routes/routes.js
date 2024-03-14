@@ -1,8 +1,16 @@
-// routes/routes.js
 const express = require('express');
+const cors = require('cors');
+
 const router = express.Router();
 const userController = require('../controllers/userController');
-const User = require('../models/userModel');
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+router.use(cors(corsOptions));
 
 router.get('/', (req, res) => {
     res.send('Bem-vindo ao backend!');
@@ -18,6 +26,7 @@ router.get('/users', async (req, res) => {
     }
 });
 
-router.post('/users', userController.createUser);
+router.post('/api/createUser', userController.createUser);
+router.post('/api/loginUser', userController.signin);
 
 module.exports = router;

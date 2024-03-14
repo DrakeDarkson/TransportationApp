@@ -24,11 +24,15 @@ const Signup = () => {
       setError("Os e-mails não são iguais");
       return;
     }
-
+  
     try {
-      await signup(username, email, senha);
-      alert("Usuário cadastrado com sucesso!");
-      navigate("/");
+      const errorMessage = await signup(username, email, senha);
+      if (errorMessage) {
+        setError(errorMessage);
+      } else {
+        alert("Usuário cadastrado com sucesso!");
+        navigate("/");
+      }
     } catch (error) {
       setError(error.message);
     }

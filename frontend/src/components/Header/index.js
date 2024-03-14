@@ -35,10 +35,10 @@ function Header() {
         <div className="userImageHeader"></div>
         <div className={`dropdownMenu ${isDropdownOpen ? 'show' : ''}`} ref={dropdownRef}>
           <ul>
-            <li>Histórico</li>
+            <li className="item">Histórico</li>
           </ul>
           <ul>
-            <li className="logout" onClick={() => [signout(), navigate("/")]} >Sair</li>
+            <li className="item logout" onClick={() => [signout(), navigate("/")]} >Sair</li>
           </ul>
         </div>
       </div>

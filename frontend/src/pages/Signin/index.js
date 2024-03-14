@@ -14,21 +14,30 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !senha) {
       setError("Preencha todos os campos");
       return;
     }
 
-    const res = signin(email, senha);
+    setLoading(true);
 
-    if (res) {
-      setError(res);
-      return;
+    try {
+      const res = await signin(email, senha);
+
+      if (res) {
+        setError(res);
+      } else {
+        alert("Usuário logado com sucesso!");
+        navigate("/home");
+      }
+    } catch (error) {
+      setError(error.message);
     }
 
-    navigate("/home");
+    setLoading(false);
   };
 
   return (
@@ -51,7 +60,7 @@ const Signin = () => {
           onChange={(e) => [setSenha(e.target.value), setError("")]}
         />
         <label className="labelError">{error}</label>
-        <Button Text="Entrar" onClick={handleLogin} />
+        <Button Text="Entrar" onClick={handleLogin} disabled={loading} />
         <div className="labelSignup">
           Não tem uma conta?
           <strong>

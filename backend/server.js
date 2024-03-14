@@ -17,10 +17,15 @@ db.once('open', () => {
   console.log('Conexão bem-sucedida com o MongoDB!');
 });
 
-// Middleware para análise do corpo da solicitação
 app.use(express.json());
 
-// Incorporando rotas
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 app.use('/', routes);
 
 app.listen(PORT, () => {

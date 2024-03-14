@@ -7,55 +7,53 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const userToken = localStorage.getItem("user_token");
-    const usersStorage = localStorage.getItem("users_bd");
-
-    if (userToken && usersStorage) {
-      const hasUser = JSON.parse(usersStorage)?.find(
-        (user) => user.email === JSON.parse(userToken).email
-      );
-
-      if (hasUser) setUser(hasUser);
+    if (userToken) {
+      setUser(JSON.parse(userToken));
     }
   }, []);
 
-  const signin = (email, password) => {
-    const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
+  const signin = async (email, password) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/loginUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
 
-    const hasUser = usersStorage?.find(
-      (user) => user.email === email && user.password === password
-    );
+      if (!response.ok) {
+        throw new Error("Senha ou email incorretos");
+      }
 
-    if (hasUser) {
-      const token = Math.random().toString(36).substring(2);
-      localStorage.setItem("user_token", JSON.stringify({ email, token }));
-      setUser(hasUser);
-      return;
-    } else {
-      return "E-mail ou senha incorretos";
+      const userData = await response.json();
+      setUser(userData);
+      localStorage.setItem("user_token", JSON.stringify(userData));
+    } catch (error) {
+      return error.message;
     }
   };
 
-  const signup = (username, email, password) => {
-    const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
+  const signup = async (username, email, password) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/createUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name: username, email, password })
+      });
 
-    const hasUser = usersStorage?.find((user) => user.email === email);
+      if (!response.ok) {
+        throw new Error("Usuário já existente");
+      }
 
-    if (hasUser) {
-      return "Já existe uma conta com este e-mail";
+      const newUser = await response.json();
+      setUser(newUser);
+      localStorage.setItem("user_token", JSON.stringify(newUser));
+    } catch (error) {
+      return error.message;
     }
-
-    const newUser = {
-      username,
-      email,
-      password
-    };
-
-    const updatedUsers = usersStorage ? [...usersStorage, newUser] : [newUser];
-
-    localStorage.setItem("users_bd", JSON.stringify(updatedUsers));
-    setUser(newUser);
-
-    return;
   };
 
   const signout = () => {
