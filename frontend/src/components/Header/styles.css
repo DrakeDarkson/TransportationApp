@@ -2,7 +2,7 @@
     width: 100%;
     height: 40px;
     background-color: rgb(20, 20, 20);
-    position: relative; /* Adicionado para posicionar corretamente o dropdown */
+    position: relative;
   }
   
   .appNameHeader {
@@ -37,22 +37,27 @@
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    display: none; /* Ocultar inicialmente o menu dropdown */
+    display: none;
+    width: 120px;
   }
   
-  .userContainer:hover .dropdownMenu {
-    display: block; /* Exibir o menu dropdown ao passar o mouse sobre .userContainer */
+  .dropdownMenu.show {
+    display: block;
   }
-  
-  ul {
+
+  .ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
+
+  .logout {
+    color: rgb(185, 20, 20);
+  }
   
   li {
     padding: 10px;
-    color: red;
+    color: rgb(0, 0, 0);
     cursor: pointer;
   }
   

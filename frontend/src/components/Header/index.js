@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./styles.css";
@@ -9,13 +9,23 @@ function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { signout } = useAuth();
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   const handleToggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleSignOut = () => {
-    console.log("Usuário desconectado");
   };
 
   return (
@@ -23,13 +33,14 @@ function Header() {
       <h3 className="appNameHeader"> Skylines </h3>
       <div className="userContainer" onClick={handleToggleDropdown}>
         <div className="userImageHeader"></div>
-        {isDropdownOpen && (
-          <div className="dropdownMenu">
-            <ul>
-              <li onClick={() => [signout(), navigate("/")]}>Sair</li>
-            </ul>
-          </div>
-        )}
+        <div className={`dropdownMenu ${isDropdownOpen ? 'show' : ''}`} ref={dropdownRef}>
+          <ul>
+            <li>Histórico</li>
+          </ul>
+          <ul>
+            <li className="logout" onClick={() => [signout(), navigate("/")]} >Sair</li>
+          </ul>
+        </div>
       </div>
       <h3 className="userNameHeader"> {username} </h3>
     </header>
