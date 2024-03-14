@@ -8,16 +8,16 @@ import Footer from "../../components/Footer";
 import backgroundImage from "../../images/icons/Transportation_icon.png";
 
 const Signup = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [emailConf, setEmailConf] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
   const { signup } = useAuth();
 
-  const handleSignup = () => {
-    if (!email || !emailConf || !senha) {
+  const handleSignup = async () => {
+    if (!username || !email || !emailConf || !senha) {
       setError("Preencha todos os campos");
       return;
     } else if (email !== emailConf) {
@@ -25,15 +25,13 @@ const Signup = () => {
       return;
     }
 
-    const res = signup(email, senha);
-
-    if (res) {
-      setError(res);
-      return;
+    try {
+      await signup(username, email, senha);
+      alert("Usuário cadastrado com sucesso!");
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
     }
-
-    alert("Usuário cadastrado com sucesso!");
-    navigate("/");
   };
 
   return (
@@ -43,6 +41,12 @@ const Signup = () => {
       </header><br/><br/><br/><br/>
       <div className="content">
         <label className="label">Cadastro</label>
+        <Input
+          type="text"
+          placeholder="Digite seu Nome de Usuário"
+          value={username}
+          onChange={(e) => [setUsername(e.target.value), setError("")]}
+        />
         <Input
           type="email"
           placeholder="Digite seu E-mail"

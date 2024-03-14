@@ -10,51 +10,50 @@ export const AuthProvider = ({ children }) => {
     const usersStorage = localStorage.getItem("users_bd");
 
     if (userToken && usersStorage) {
-      const hasUser = JSON.parse(usersStorage)?.filter(
+      const hasUser = JSON.parse(usersStorage)?.find(
         (user) => user.email === JSON.parse(userToken).email
       );
 
-      if (hasUser) setUser(hasUser[0]);
+      if (hasUser) setUser(hasUser);
     }
   }, []);
 
   const signin = (email, password) => {
     const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
 
-    const hasUser = usersStorage?.filter((user) => user.email === email);
+    const hasUser = usersStorage?.find(
+      (user) => user.email === email && user.password === password
+    );
 
-    if (hasUser?.length) {
-      if (hasUser[0].email === email && hasUser[0].password === password) {
-        const token = Math.random().toString(36).substring(2);
-        localStorage.setItem("user_token", JSON.stringify({ email, token }));
-        setUser({ email, password });
-        return;
-      } else {
-        return "E-mail ou senha incorretos";
-      }
+    if (hasUser) {
+      const token = Math.random().toString(36).substring(2);
+      localStorage.setItem("user_token", JSON.stringify({ email, token }));
+      setUser(hasUser);
+      return;
     } else {
-      return "Usuário não cadastrado";
+      return "E-mail ou senha incorretos";
     }
   };
 
-  const signup = (email, password) => {
+  const signup = (username, email, password) => {
     const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
 
-    const hasUser = usersStorage?.filter((user) => user.email === email);
+    const hasUser = usersStorage?.find((user) => user.email === email);
 
-    if (hasUser?.length) {
-      return "Já tem uma conta com esse E-mail";
+    if (hasUser) {
+      return "Já existe uma conta com este e-mail";
     }
 
-    let newUser;
+    const newUser = {
+      username,
+      email,
+      password
+    };
 
-    if (usersStorage) {
-      newUser = [...usersStorage, { email, password }];
-    } else {
-      newUser = [{ email, password }];
-    }
+    const updatedUsers = usersStorage ? [...usersStorage, newUser] : [newUser];
 
-    localStorage.setItem("users_bd", JSON.stringify(newUser));
+    localStorage.setItem("users_bd", JSON.stringify(updatedUsers));
+    setUser(newUser);
 
     return;
   };
