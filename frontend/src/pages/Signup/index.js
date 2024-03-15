@@ -13,6 +13,7 @@ const Signup = () => {
   const [emailConf, setEmailConf] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
   const { signup } = useAuth();
 
@@ -30,8 +31,11 @@ const Signup = () => {
       if (errorMessage) {
         setError(errorMessage);
       } else {
-        alert("Usuário cadastrado com sucesso!");
-        navigate("/");
+        setSuccessMessage("Usuário cadastrado com sucesso!");
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate("/");
+        }, 1500);
       }
     } catch (error) {
       setError(error.message);
@@ -41,8 +45,9 @@ const Signup = () => {
   return (
     <div className="container">
       <header className="pageHeader">
-        <img src={backgroundImage} alt="logo" className="logo" />
-      </header><br/><br/><br/><br/>
+        <h1 className="title">Sem fronteiras</h1>
+      </header>
+      <img src={backgroundImage} alt="logo" className="logo" />
       <div className="content">
         <label className="label">Cadastro</label>
         <Input
@@ -70,6 +75,9 @@ const Signup = () => {
           onChange={(e) => [setSenha(e.target.value), setError("")]}
         />
         <label className="labelError">{error}</label>
+        <div className={`successMessage ${successMessage ? 'show-message' : ''}`}>
+          {successMessage}
+        </div>
         <Button Text="Inscrever-se" onClick={handleSignup} />
         <div className="labelSignin">
           Já tem uma conta?

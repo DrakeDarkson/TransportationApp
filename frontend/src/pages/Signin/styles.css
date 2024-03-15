@@ -51,6 +51,10 @@
   margin: 100px;
 }
 
+.title {
+  font-style: italic;
+}
+
 .pageHeader {
   background-color: rgb(20, 20, 20);
   color: white;
@@ -60,3 +64,24 @@
   width: 100%;
   top: 0;
 }
+
+.successMessage {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+  max-width: 90%;
+  text-align: center;
+  transition: top 0.5s ease;
+}
+
+.show-message {
+  top: 60px;
+}
+
+

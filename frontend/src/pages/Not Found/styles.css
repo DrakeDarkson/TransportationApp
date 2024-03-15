@@ -29,6 +29,10 @@ content h3 {
   width: 150px;
 }
 
+.title {
+  font-style: italic;
+}
+
 .pageHeader {
   background-color: rgb(20, 20, 20);
   color: white;

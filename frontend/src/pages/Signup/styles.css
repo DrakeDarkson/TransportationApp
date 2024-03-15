@@ -48,7 +48,11 @@
 
 .logo {
   width: 150px;
-  margin: 100px;
+  margin: 0px;
+}
+
+.title {
+  font-style: italic;
 }
 
 .pageHeader {
@@ -59,4 +63,23 @@
   position: fixed;
   width: 100%;
   top: 0;
+}
+
+.successMessage {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+  max-width: 90%;
+  text-align: center;
+  transition: top 0.5s ease;
+}
+
+.show-message {
+  top: 60px;
 }

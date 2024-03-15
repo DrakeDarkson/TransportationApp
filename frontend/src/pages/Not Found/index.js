@@ -14,7 +14,9 @@ const NotFound = () => {
 
   return (
     <div className="container">
-      <header className="pageHeader"></header>
+      <header className="pageHeader">
+        <h1 className="title">Sem fronteiras</h1>
+      </header>
       <div className="content">
         <img src={Search_icon} alt="logo" className="logo" />
         <h3>A página procurada não existe.</h3>

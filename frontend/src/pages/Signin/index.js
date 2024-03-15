@@ -15,6 +15,7 @@ const Signin = () => {
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleLogin = async () => {
     if (!email || !senha) {
@@ -30,8 +31,11 @@ const Signin = () => {
       if (res) {
         setError(res);
       } else {
-        alert("Usuário logado com sucesso!");
-        navigate("/home");
+        setSuccessMessage("Usuário logado com sucesso!");
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate("/home");
+        }, 1500);
       }
     } catch (error) {
       setError(error.message);
@@ -43,8 +47,9 @@ const Signin = () => {
   return (
     <div className="container">
       <header className="pageHeader">
-        <img src={backgroundImage} alt="logo" className="logo" />
+        <h1 className="title">Sem fronteiras</h1>
       </header>
+      <img src={backgroundImage} alt="logo" className="logo" />
       <div className="content">
         <label className="label">LOGIN</label>
         <Input
@@ -60,6 +65,11 @@ const Signin = () => {
           onChange={(e) => [setSenha(e.target.value), setError("")]}
         />
         <label className="labelError">{error}</label>
+        <div
+          className={`successMessage ${successMessage ? 'show-message' : ''}`}
+        >
+          {successMessage}
+        </div>
         <Button Text="Entrar" onClick={handleLogin} disabled={loading} />
         <div className="labelSignup">
           Não tem uma conta?

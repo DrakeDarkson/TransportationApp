@@ -30,7 +30,7 @@ function Header() {
 
   return (
     <header className="pageHeader">
-      <h3 className="appNameHeader"> Skylines </h3>
+      <h3 className="appNameHeader"> Sem Fronteiras </h3>
       <div className="userContainer" onClick={handleToggleDropdown}>
         <div className="userImageHeader"></div>
         <div className={`dropdownMenu ${isDropdownOpen ? 'show' : ''}`} ref={dropdownRef}>
