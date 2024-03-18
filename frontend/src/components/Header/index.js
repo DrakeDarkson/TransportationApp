@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./styles.css";
 
-const username = "Usuário 1";
-
 function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const { signout } = useAuth();
+  const { user, signout } = useAuth();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
@@ -42,7 +40,7 @@ function Header() {
           </ul>
         </div>
       </div>
-      <h3 className="userNameHeader"> {username} </h3>
+      <h3 className="userNameHeader"> {user ? user.name : 'Usuário'} </h3> {/* Exibir o nome do usuário */}
     </header>
   );
 }

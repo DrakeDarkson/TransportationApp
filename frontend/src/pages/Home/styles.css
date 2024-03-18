@@ -20,6 +20,12 @@
     box-sizing: border-box;
 }
 
+.labelError {
+    margin: 0px auto;
+    text-align: center;
+    width: 100%;
+}
+
 .btn-primary {
     background-color: rgb(197, 197, 197);
     border: none;

@@ -39,3 +39,17 @@ exports.signin = async (req, res) => {
     res.status(500).json({ message: 'Erro ao fazer login.' });
   }
 };
+
+exports.getUserDetails = async (req, res) => {
+  try {
+    const userDetails = {
+      name: req.user.name,
+      email: req.user.email,
+    };
+
+    res.status(200).json(userDetails);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao obter detalhes do usuário.' });
+  }
+};

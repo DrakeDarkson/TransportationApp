@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import "./styles.css";
 import Header from "../../components/Header";
@@ -11,6 +10,8 @@ function Home() {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [response, setResponse] = useState(null);
+  const [estimatedTime, setEstimatedTime] = useState("");
+  const [error, setError] = useState("");
 
   const mapContainerStyle = {
     width: '100%',
@@ -22,11 +23,27 @@ function Home() {
     lng: -122.3222
   };
 
+  const formatTime = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+
+    if (hours > 0) {
+      return `${hours}h ${remainingMinutes}min`;
+    } else {
+      return `${remainingMinutes}min`;
+    }
+  };
+
   const onDirectionsChanged = (result, status) => {
     if (status === 'OK') {
       setResponse(result);
+
+      const durationInSeconds = result.routes[0].legs[0].duration.value;
+      const durationInMinutes = Math.ceil(durationInSeconds / 60);
+      setEstimatedTime(formatTime(durationInMinutes));
+      setError("");
     } else {
-      console.error(`Error fetching directions: ${status}`);
+      setError(`Não foi possível traçar a rota desejada`);
     }
   };
 
@@ -69,6 +86,9 @@ function Home() {
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
           />
+          {error && (
+            <label className="labelError">{error}</label>
+          )}
           <button className={`btn ${origin && destination ? 'btn-secondary-ready' : 'btn-secondary'}`} onClick={onButtonClick}>
             Criar Rota
           </button>
@@ -82,7 +102,8 @@ function Home() {
           <input
             className="inputLocation"
             type="text"
-            placeholder="50 min - R$20,00"
+            value={estimatedTime}
+            readOnly
           />
 
           <h2 className="menuTitle">Aplicativo Selecionado</h2>
@@ -91,7 +112,7 @@ function Home() {
           </button>
         </div>
         <div className="map">
-          <LoadScript googleMapsApiKey="#API_KEY">
+          <LoadScript googleMapsApiKey="AIzaSyBGVaxGSqyPaYOsYTBjZ72wB6xqo3PVwEo">
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
               center={center}

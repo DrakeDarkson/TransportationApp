@@ -26,7 +26,10 @@ router.get('/users', async (req, res) => {
     }
 });
 
+router.get('/api/userDetails', userController.getUserDetails);
+
 router.post('/api/createUser', userController.createUser);
+
 router.post('/api/loginUser', userController.signin);
 
 module.exports = router;

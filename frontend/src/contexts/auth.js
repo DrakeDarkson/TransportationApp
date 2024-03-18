@@ -61,9 +61,34 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user_token");
   };
 
+  const getUserDetails = async () => {
+    try {
+      const userToken = localStorage.getItem("user_token");
+      if (!userToken) {
+        throw new Error("Token de usuário não encontrado");
+      }
+
+      const response = await fetch("http://localhost:3001/api/userDetails", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar detalhes do usuário");
+      }
+
+      const userDetails = await response.json();
+      return userDetails;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, signed: !!user, signin, signup, signout }}
+      value={{ user, signed: !!user, signin, signup, signout, getUserDetails }}
     >
       {children}
     </AuthContext.Provider>
