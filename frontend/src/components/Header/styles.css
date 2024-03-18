@@ -7,13 +7,13 @@
   
   .appNameHeader {
     color: whitesmoke;
-    text-align: right;
+    margin: auto 35px;
     float: left;
   }
   
   .userNameHeader {
     color: whitesmoke;
-    margin: auto 30px;
+    margin: auto 35px;
     float: right;
   }
   
@@ -28,6 +28,18 @@
     transform: translateY(-50%);
     right: 0;
     background-color: whitesmoke;
+  }
+
+  .logoImageHeader {
+    width: 30px;
+    height: 30px;
+    margin: auto 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
   }
   
   .dropdownMenu {

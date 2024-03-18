@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./styles.css";
+import logoImage from "../../images/icons/Transportation_icon.png";
+import userImage from "../../images/icons/user_icon.png";
 
 function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -28,12 +30,13 @@ function Header() {
 
   return (
     <header className="pageHeader">
+      <img src={logoImage} alt="logo" className="logoImageHeader" onClick={() => [navigate("/home")]} />
       <h3 className="appNameHeader"> Sem Fronteiras </h3>
       <div className="userContainer" onClick={handleToggleDropdown}>
-        <div className="userImageHeader"></div>
+        <img src={userImage} alt="userImage" className="userImageHeader" />
         <div className={`dropdownMenu ${isDropdownOpen ? 'show' : ''}`} ref={dropdownRef}>
           <ul>
-            <li className="item">Histórico</li>
+            <li className="item" onClick={() => [navigate("/history")]}>Histórico</li>
           </ul>
           <ul>
             <li className="item logout" onClick={() => [signout(), navigate("/")]} >Sair</li>

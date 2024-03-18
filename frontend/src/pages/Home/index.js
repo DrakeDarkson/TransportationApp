@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, DirectionsRenderer } from '@react-google-maps/api';
 import "./styles.css";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer"
+import Footer from "../../components/Footer";
 import backgroundImage from "../../images/icons/transport_car_icon.png";
 
 function Home() {
-
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [response, setResponse] = useState(null);
@@ -49,7 +48,7 @@ function Home() {
 
   const onButtonClick = () => {
     if (!origin || !destination) {
-      console.error("Por favor, insira origem e destino.");
+      setError("Por favor, insira origem e destino.");
       return;
     }
 
@@ -68,67 +67,63 @@ function Home() {
   return (
     <>
       <Header />
-      <body>
-        <div className="menu">
-          <h2 className="menuTitle">Seu Destino</h2>
-          <input
-            className="inputLocation"
-            type="text"
-            placeholder="Origem"
-            value={origin}
-            onChange={(e) => setOrigin(e.target.value)}
-          />
-          <br />
-          <input
-            className="inputLocation"
-            type="text"
-            placeholder="Destino"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-          />
-          {error && (
-            <label className="labelError">{error}</label>
-          )}
-          <button className={`btn ${origin && destination ? 'btn-secondary-ready' : 'btn-secondary'}`} onClick={onButtonClick}>
-            Criar Rota
-          </button>
+      <div className="menu">
+        <h2 className="menuTitle">Seu Destino</h2>
+        <input
+          className="inputLocation"
+          type="text"
+          placeholder="Origem"
+          value={origin}
+          onChange={(e) => setOrigin(e.target.value)}
+        />
+        <br />
+        <input
+          className="inputLocation"
+          type="text"
+          placeholder="Destino"
+          value={destination}
+          onChange={(e) => setDestination(e.target.value)}
+        />
+        {error && <label className="labelError">{error}</label>}
+        <button className={`btn ${origin && destination ? 'btn-secondary-ready' : 'btn-secondary'}`} onClick={onButtonClick}>
+          Criar Rota
+        </button>
 
-          <h2 className="menuTitle">Melhores Opções</h2>
-          <button className="btn btn-primary">
-            <img src={backgroundImage} alt="car" className="icon"/>
-          </button>
+        <h2 className="menuTitle">Melhores Opções</h2>
+        <button className="btn btn-primary">
+          <img src={backgroundImage} alt="car" className="icon"/>
+        </button>
 
-          <h2 className="menuTitle">Tempo Estimado / Preço</h2>
-          <input
-            className="inputLocation"
-            type="text"
-            value={estimatedTime}
-            readOnly
-          />
+        <h2 className="menuTitle">Tempo Estimado / Preço</h2>
+        <input
+          className="inputLocation"
+          type="text"
+          value={estimatedTime}
+          readOnly
+        />
 
-          <h2 className="menuTitle">Aplicativo Selecionado</h2>
-          <button className="btn btn-secondary">
-            Iniciar ---
-          </button>
-        </div>
-        <div className="map">
-          <LoadScript googleMapsApiKey="AIzaSyBGVaxGSqyPaYOsYTBjZ72wB6xqo3PVwEo">
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              center={center}
-              zoom={14}
-            >
-              {response && (
-                <DirectionsRenderer
-                  options={{
-                    directions: response
-                  }}
-                />
-              )}
-            </GoogleMap>
-          </LoadScript>
-        </div>
-      </body>
+        <h2 className="menuTitle">Aplicativo Selecionado</h2>
+        <button className="btn btn-secondary">
+          Iniciar ---
+        </button>
+      </div>
+      <div className="map">
+        <LoadScript googleMapsApiKey="#API_KEY">
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            center={center}
+            zoom={14}
+          >
+            {response && (
+              <DirectionsRenderer
+                options={{
+                  directions: response
+                }}
+              />
+            )}
+          </GoogleMap>
+        </LoadScript>
+      </div>
       <Footer />
     </>
   );
