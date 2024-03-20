@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const router = express.Router();
 const userController = require('../controllers/userController');
+const travelController = require('../controllers/travelController');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -26,10 +27,14 @@ router.get('/users', async (req, res) => {
     }
 });
 
-router.get('/api/userDetails', userController.getUserDetails);
-
 router.post('/api/createUser', userController.createUser);
 
 router.post('/api/loginUser', userController.signin);
+
+router.get('/api/userDetails', userController.getUserDetails);
+
+router.post('/api/createTravel', travelController.createTravel);
+
+router.get('/api/TravelDetails', travelController.getTravelDetails);
 
 module.exports = router;

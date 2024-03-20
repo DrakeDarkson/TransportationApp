@@ -33,7 +33,7 @@ exports.signin = async (req, res) => {
       return res.status(401).json({ message: 'E-mail ou senha incorretos' });
     }
     
-    res.status(200).json({ email: user.email, name: user.name });
+    res.status(200).json({ email: user.email, name: user.name, id: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao fazer login.' });

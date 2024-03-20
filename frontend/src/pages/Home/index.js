@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import compareTravels from '../../travelsComparison';
 import { Autocomplete } from '@react-google-maps/api';
+import useAuth from "../../hooks/useAuth"; // Importe o hook useAuth
 
 import './styles.css';
 import Header from '../../components/Header';
@@ -18,11 +19,12 @@ function Home() {
   const [originAutocomplete, setOriginAutocomplete] = useState(null);
   const [destinationAutocomplete, setDestinationAutocomplete] = useState(null);
   const [response, setResponse] = useState(null);
-  const [estimatedTime, setEstimatedTime] = useState('');
+  const [estimatedTime, setEstimatedTime] = useState('0 min');
   const [error, setError] = useState('');
   const [startButtonClass, setStartButtonClass] = useState('btn btn-secondary');
-
-  const appChosen = compareTravels();
+  const [appChosen, setAppChosen] = useState('');
+  const [estimatedPrice, setEstimatedPrice] = useState('00.00');
+  const { user, createTravel } = useAuth();
 
   const getAppIcon = () => {
     switch (appChosen) {
@@ -53,9 +55,9 @@ function Home() {
     const remainingMinutes = minutes % 60;
 
     if (hours > 0) {
-      return `${hours}h ${remainingMinutes}min`;
+      return `${hours} h ${remainingMinutes} min`;
     } else {
-      return `${remainingMinutes}min`;
+      return `${remainingMinutes} min`;
     }
   };
 
@@ -65,9 +67,24 @@ function Home() {
 
       const durationInSeconds = result.routes[0].legs[0].duration.value;
       const durationInMinutes = Math.ceil(durationInSeconds / 60);
-      setEstimatedTime(formatTime(durationInMinutes));
+      const formattedTime = formatTime(durationInMinutes);
+      setEstimatedTime(formattedTime);
       setError('');
-      setStartButtonClass('btn btn-secondary-ready'); // Alterando a classe do botão "Iniciar"
+      setStartButtonClass('btn btn-secondary-ready');
+
+      const { app, price } = compareTravels(result.routes[0].legs[0].distance.value / 1000);
+      setAppChosen(app);
+      setEstimatedPrice(price);
+
+      createTravel({
+        user: user.id,
+        origin: result.request.origin.query,
+        destination: result.request.destination.query,
+        estimatedPrice: price,
+        travelTime: formattedTime,
+        appUsed: app,
+        distance: result.routes[0].legs[0].distance.value / 1000
+      });
     } else {
       setError(`Não foi possível traçar a rota desejada`);
     }
@@ -144,7 +161,7 @@ function Home() {
         </button>
 
         <h2 className="menuTitle">Tempo Estimado / Preço</h2>
-        <input className="inputLocation" type="text" value={estimatedTime} readOnly />
+        <input className="inputLocation" type="text" value={`⏳ ${estimatedTime} / 💰 R$ ${estimatedPrice}`} readOnly />
 
         <h2 className="menuTitle">Aplicativo Selecionado</h2>
         <img src={getAppIcon()} alt="app" className="appIcon" />

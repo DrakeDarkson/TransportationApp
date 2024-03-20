@@ -43,7 +43,7 @@ function Header() {
           </ul>
         </div>
       </div>
-      <h3 className="userNameHeader"> {user ? user.name : 'Usuário'} </h3> {/* Exibir o nome do usuário */}
+      <h3 className="userNameHeader"> {user ? user.name : 'Usuário'} </h3>
     </header>
   );
 }

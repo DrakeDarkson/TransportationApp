@@ -1,4 +1,4 @@
-.container {
+.containerHistory {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,21 +7,18 @@
   height: 100vh;
 }
 
-.content {
-  gap: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
+.contentHistory {
+  width: 80%;
+  height: 80%;
+  overflow-y: auto;
   box-shadow: 0 1px 2px #0003;
   background-color: white;
-  max-width: 350px;
   padding: 20px;
   border-radius: 5px;
 }
 
-.menuTitle {
-  margin: 10px 0;
-  font-size: 18px;
+.menuTitleHistory {
+  margin: 0px auto 10px auto;
+  text-align: center;
+  font-size: 24px;
 }

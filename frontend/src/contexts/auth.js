@@ -86,9 +86,35 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const createTravel = async (data) => {
+    try {
+      const userToken = localStorage.getItem("user_token");
+      if (!userToken) {
+        throw new Error("Token de usuário não encontrado");
+      }
+      
+      const response = await fetch("http://localhost:3001/api/createTravel", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error("Erro ao criar viagem");
+      }
+  
+    } catch (error) {
+      console.error('Erro ao criar viagem:', error);
+      throw new Error('Erro ao criar viagem.');
+    }
+  };  
+
   return (
     <AuthContext.Provider
-      value={{ user, signed: !!user, signin, signup, signout, getUserDetails }}
+      value={{ user, signed: !!user, signin, signup, signout, getUserDetails, createTravel }}
     >
       {children}
     </AuthContext.Provider>
