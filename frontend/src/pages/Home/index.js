@@ -9,6 +9,7 @@ import carIcon from '../../images/icons/transport_car_icon.png';
 import uberIcon from '../../images/icons/uber_icon.png';
 import taxiIcon from '../../images/icons/99_icon.png';
 import unknownIcon from '../../images/icons/unknown_icon.png';
+import advertisementImg from '../../images/advertising.jpg';
 import MapComponent from './MapComponent';
 
 function Home() {
@@ -19,6 +20,8 @@ function Home() {
   const [response, setResponse] = useState(null);
   const [estimatedTime, setEstimatedTime] = useState('');
   const [error, setError] = useState('');
+  const [startButtonClass, setStartButtonClass] = useState('btn btn-secondary');
+
   const appChosen = compareTravels();
 
   const getAppIcon = () => {
@@ -64,6 +67,7 @@ function Home() {
       const durationInMinutes = Math.ceil(durationInSeconds / 60);
       setEstimatedTime(formatTime(durationInMinutes));
       setError('');
+      setStartButtonClass('btn btn-secondary-ready'); // Alterando a classe do botão "Iniciar"
     } else {
       setError(`Não foi possível traçar a rota desejada`);
     }
@@ -144,8 +148,8 @@ function Home() {
 
         <h2 className="menuTitle">Aplicativo Selecionado</h2>
         <img src={getAppIcon()} alt="app" className="appIcon" />
-        <button className="btn btn-secondary" onClick={handleStartButtonClick}>
-          Iniciar ---
+        <button className={startButtonClass} onClick={handleStartButtonClick}>
+          Iniciar
         </button>
       </div>
       <MapComponent
@@ -154,12 +158,15 @@ function Home() {
           height: '600px'
         }}
         center={{
-          lat: 47.6115,
-          lng: -122.3222
+          lat: -22.90625932733715, 
+          lng: -43.17689383053063
         }}
         zoom={14}
         response={response}
       />
+      <a href='https://www.subway.com/pt-BR' className='advertisement'>
+        <img src={advertisementImg} alt='ad' className="advertisement-img" />
+      </a>
       <Footer />
     </>
   );

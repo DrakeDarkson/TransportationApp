@@ -1,5 +1,5 @@
 const compareTravels = () => {
-    const uberPrice = 25;
+    const uberPrice = 35;
     const taxi99Price = 30;
   
     if (uberPrice < taxi99Price) {
