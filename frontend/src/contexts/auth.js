@@ -112,9 +112,35 @@ export const AuthProvider = ({ children }) => {
     }
   };  
 
+  const getAllTravels = async () => {
+    try {
+      const userToken = localStorage.getItem("user_token");
+      if (!userToken) {
+        throw new Error("Token de usuário não encontrado");
+      }
+
+      const response = await fetch(`http://localhost:3001/api/getAllTravels?userId=${user.id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar viagens");
+      }
+
+      const travelsData = await response.json();
+      return travelsData;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Erro ao buscar viagens");
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, signed: !!user, signin, signup, signout, getUserDetails, createTravel }}
+    value={{ user, signed: !!user, signin, signup, signout, getUserDetails, createTravel, getAllTravels }}
     >
       {children}
     </AuthContext.Provider>

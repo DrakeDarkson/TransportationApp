@@ -24,16 +24,15 @@ exports.createTravel = async (req, res) => {
 };
 
 
-exports.getTravelDetails = async (req, res) => {
+exports.getAllTravels = async (req, res) => {
   try {
-    const travelDetails = await Travel.findById(req.params.id);
-    if (!travelDetails) {
-      return res.status(404).json({ message: 'Viagem não encontrada.' });
-    }
+    const userId = req.query.userId;
+    const travels = await Travel.find({ user: userId });
 
-    res.status(200).json(travelDetails);
+    res.status(200).json(travels);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro ao obter detalhes da viagem.' });
+    res.status(500).json({ message: 'Erro ao buscar viagens.' });
   }
 };
+

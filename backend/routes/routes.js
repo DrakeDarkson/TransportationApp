@@ -35,6 +35,6 @@ router.get('/api/userDetails', userController.getUserDetails);
 
 router.post('/api/createTravel', travelController.createTravel);
 
-router.get('/api/TravelDetails', travelController.getTravelDetails);
+router.get('/api/getAllTravels', travelController.getAllTravels);
 
 module.exports = router;

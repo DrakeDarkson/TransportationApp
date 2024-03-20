@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import compareTravels from '../../travelsComparison';
 import { Autocomplete } from '@react-google-maps/api';
-import useAuth from "../../hooks/useAuth"; // Importe o hook useAuth
+import useAuth from "../../hooks/useAuth";
 
 import './styles.css';
 import Header from '../../components/Header';
