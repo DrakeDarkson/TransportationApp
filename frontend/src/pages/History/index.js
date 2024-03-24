@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 import trashIcon from "../../images/icons/trash_icon.png";
 import TravelContainer from "../../components/TravelContainer";
 import useAuth from "../../hooks/useAuth";
-import { Button } from "react-bootstrap"; // Importe o componente Button do Bootstrap
+import { Button } from "react-bootstrap";
 
 const History = () => {
   const { user, getAllTravels, deleteTravelHistory } = useAuth();
@@ -29,8 +29,8 @@ const History = () => {
     if (confirmDelete) {
       try {
         await deleteTravelHistory();
-        setHistoryData([]); // Limpa os dados após a exclusão
-        setShowModal(false); // Fecha o modal após a exclusão
+        setHistoryData([]);
+        setShowModal(false);
       } catch (error) {
         console.error(error);
       }
@@ -64,9 +64,9 @@ const History = () => {
       <Footer />
 
       {showModal && (
-        <div className="modal">
-          <div className="modal-content d-flex justify-content-between">
-            <h2 className="modalTitle">Deseja apagar o seu histórico?</h2>
+        <div className="modalH">
+          <div className="modal-contentH d-flex justify-content-between">
+            <h2 className="modalTitleH">Deseja apagar o seu histórico?</h2>
             <div>
               <Button variant="secondary" onClick={() => setShowModal(false)}>Cancelar</Button>
               <Button variant="danger" onClick={() => { setConfirmDelete(true); handleDeleteConfirm(); }}>Confirmar</Button>

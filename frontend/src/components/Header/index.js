@@ -36,6 +36,9 @@ function Header() {
         <img src={userImage} alt="userImage" className="userImageHeader" />
         <div className={`dropdownMenu ${isDropdownOpen ? 'show' : ''}`} ref={dropdownRef}>
           <ul>
+            <li className="item" onClick={() => [navigate("/user")]}>Usuário</li>
+          </ul>
+          <ul>
             <li className="item" onClick={() => [navigate("/history")]}>Histórico</li>
           </ul>
           <ul>

@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import Home from "../pages/Home";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
+import User from "../pages/User";
 import History from "../pages/History";
 import NotFound from "../pages/Not Found";
 
@@ -21,6 +22,7 @@ const RoutesApp = () => {
           <Route exact path="/home" element={<Private Item={Home} />} />
           <Route path="/" element={<Signin />} />
           <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/user" element={<User />} />
           <Route exact path="/history" element={<History />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
