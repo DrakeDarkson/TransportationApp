@@ -7,7 +7,7 @@ const travelController = require('../controllers/travelController');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
@@ -36,5 +36,7 @@ router.get('/api/userDetails', userController.getUserDetails);
 router.post('/api/createTravel', travelController.createTravel);
 
 router.get('/api/getAllTravels', travelController.getAllTravels);
+
+router.delete('/api/deleteTravelHistory/:userId', travelController.deleteTravelHistory);
 
 module.exports = router;

@@ -138,9 +138,36 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const deleteTravelHistory = async () => {
+    try {
+      const userToken = localStorage.getItem("user_token");
+      if (!userToken) {
+        throw new Error("Token de usuário não encontrado");
+      }
+  
+      const userData = JSON.parse(userToken);
+      const userId = userData.id;
+      
+      const response = await fetch(`http://localhost:3001/api/deleteTravelHistory/${userId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error("Erro ao excluir histórico de viagens");
+      }
+  
+    } catch (error) {
+      console.error(error);
+      throw new Error("Erro ao excluir histórico de viagens");
+    }
+  };  
+
   return (
     <AuthContext.Provider
-    value={{ user, signed: !!user, signin, signup, signout, getUserDetails, createTravel, getAllTravels }}
+    value={{ user, signed: !!user, signin, signup, signout, getUserDetails, createTravel, getAllTravels, deleteTravelHistory }}
     >
       {children}
     </AuthContext.Provider>

@@ -23,7 +23,6 @@ exports.createTravel = async (req, res) => {
   }
 };
 
-
 exports.getAllTravels = async (req, res) => {
   try {
     const userId = req.query.userId;
@@ -33,6 +32,19 @@ exports.getAllTravels = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao buscar viagens.' });
+  }
+};
+
+exports.deleteTravelHistory = async (req, res) => {
+  const userId = req.params.userId;
+  
+  try {
+    await Travel.deleteMany({ user: userId });
+
+    res.status(200).json({ message: 'Histórico de viagens excluído com sucesso.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao excluir histórico de viagens.' });
   }
 };
 
