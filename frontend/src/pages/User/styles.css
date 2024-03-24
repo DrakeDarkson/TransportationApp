@@ -20,18 +20,24 @@
 .menuTitleUser {
   margin: 10px auto 10px auto;
   text-align: center;
-  font-size: 24px;
+  font-size: 28px;
 }
 
 .contentUser p {
   margin: 10px auto 10px auto;
   text-align: center;
+  font-size: 18px;
 }
 
 .userImage {
   width: 100px;
   margin: auto;
   display: block;
+}
+
+.editIcon {
+  width: 25px;
+  float: right;
 }
 
 .appIconContainer {
@@ -64,7 +70,7 @@
 
 .modal-contentU {
   width: 80%;
-  height: 30%;
+  height: 25%;
   background-color: white;
   padding: 20px;
   border-radius: 5px;

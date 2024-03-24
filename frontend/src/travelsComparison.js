@@ -1,38 +1,60 @@
-function calculateUberPrice(distance) {
-  const tarifaFixaMin = 1.5;
-  const tarifaFixaMax = 4.5;
-  const tarifasPorKmMin = 1.0;
-  const tarifasPorKmMax = 2.45;
+// Updated data at march 2024
 
-  const dynamicPrice = Math.random() * (1.5 - 0.8) + 0.8;
-  const precoNormalMin = tarifaFixaMin + (distance * tarifasPorKmMin);
-  const precoNormalMax = tarifaFixaMax + (distance * tarifasPorKmMax);
+function calculateUberPrice(distance, time) {
+  const basePrice = 3.23;
+  const minPrice = 7.88;
+  const perKilometerPrice = 1.33;
+  const perMinutePrice = 0.27;
+  const currentTime = new Date().getHours();
 
-  const precoMinComDynamic = precoNormalMin * dynamicPrice;
-  const precoMaxComDynamic = precoNormalMax * dynamicPrice;
+  const totalPrice = basePrice + (distance * perKilometerPrice);
+  const timePrice = perMinutePrice * time;
+  const finalPrice = Math.max(totalPrice, minPrice + timePrice);
 
-  return `${precoMinComDynamic.toFixed(2)} - ${precoMaxComDynamic.toFixed(2)}`;
+  let dynamicPriceFactor = 1.0;
+
+  if (currentTime >= 22 || currentTime <= 10) {
+    dynamicPriceFactor = 1.25;
+  }
+
+  const minPriceWithDynamic = finalPrice * dynamicPriceFactor * 0.75;
+  const maxPriceWithDynamic = finalPrice * dynamicPriceFactor * 1.25;
+
+  const minPriceFormatted = minPriceWithDynamic.toFixed(2).replace('.', ',');
+  const maxPriceFormatted = maxPriceWithDynamic.toFixed(2).replace('.', ',');
+
+  return `${minPriceFormatted} - ${maxPriceFormatted}`;
 }
 
-function calculateTaxi99Price(distance) {
-  const tarifaFixaMin = 1.5;
-  const tarifaFixaMax = 4.5;
-  const tarifasPorKmMin = 1.0;
-  const tarifasPorKmMax = 2.45;
+function calculateTaxi99Price(distance, time) {
+  const basePrice = 2.00;
+  const minPrice = 7.67;
+  const perKilometerPrice = 1.69;
+  const perMinutePrice = 0.11;
+  const currentTime = new Date().getHours();
 
-  const dynamicPrice = Math.random() * (1.5 - 0.8) + 0.8;
-  const precoNormalMin = tarifaFixaMin + (distance * tarifasPorKmMin);
-  const precoNormalMax = tarifaFixaMax + (distance * tarifasPorKmMax);
+  const totalPrice = basePrice + (distance * perKilometerPrice);
+  const timePrice = perMinutePrice * time;
+  const finalPrice = Math.max(totalPrice, minPrice + timePrice);
 
-  const precoMinComDynamic = precoNormalMin * dynamicPrice;
-  const precoMaxComDynamic = precoNormalMax * dynamicPrice;
+  let dynamicPriceFactor = 1.0;
 
-  return `${precoMinComDynamic.toFixed(2)} - ${precoMaxComDynamic.toFixed(2)}`;
+  if (currentTime > 10 && currentTime < 22) {
+    dynamicPriceFactor = 1.25;
+  }
+
+  const minPriceWithDynamic = finalPrice * dynamicPriceFactor * 0.75;
+  const maxPriceWithDynamic = finalPrice * dynamicPriceFactor * 1.25;
+
+  const minPriceFormatted = minPriceWithDynamic.toFixed(2).replace('.', ',');
+  const maxPriceFormatted = maxPriceWithDynamic.toFixed(2).replace('.', ',');
+
+  return `${minPriceFormatted} - ${maxPriceFormatted}`;
 }
 
-function compareTravels(distance) {
-  const taxi99Price = calculateTaxi99Price(distance);
-  const uberPrice = calculateUberPrice(distance);
+function compareTravels(distance, time) {
+  const taxi99Price = calculateTaxi99Price(distance, time);
+  const uberPrice = calculateUberPrice(distance, time);
 
   if (uberPrice <= taxi99Price) {
     return { app: 'uber', price: uberPrice };

@@ -72,7 +72,7 @@ function Home() {
       setError('');
       setStartButtonClass('btn btn-secondary-ready');
 
-      const { app, price } = compareTravels(result.routes[0].legs[0].distance.value / 1000);
+      const { app, price } = compareTravels((result.routes[0].legs[0].distance.value / 1000), durationInMinutes);
       setAppChosen(app);
       setEstimatedPrice(price);
 

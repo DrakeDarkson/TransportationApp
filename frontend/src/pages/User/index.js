@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import userImage from "../../images/icons/user_icon.png";
 import preferencesImage from "../../images/icons/preferences_icon.png";
+import editIcon from '../../images/icons/edit_icon.png';
 import uberIcon from '../../images/icons/uber_icon.png';
 import taxiIcon from '../../images/icons/99_icon.png';
 
@@ -38,13 +39,15 @@ const User = () => {
         <div>
           <img src={userImage} alt="userImage" className="userImage" />
           <h2 className="menuTitleUser">Info</h2>
-            <p>Nome de usuário: {user.name}</p>
-            <p>Email: {user.email}</p>
-          <button className="btn btn-secondary" onClick={() => setShowModal(true)}>
-            Editar
-          </button>
+          <p>Nome de usuário: {user.name}</p>
+          <p>Email: {user.email}</p>
+          <img src={editIcon} alt="edit" className="editIcon"  onClick={() => setShowModal(true)} />
+          <br/>
+          <Button variant="danger" className="btn btn-secondary">
+            Excluir Conta
+          </Button>
         </div>
-        <br /><br />
+        <hr/>
         <div>
           <img src={preferencesImage} alt="preferencesImage" className="userImage" />
           <h2 className="menuTitleUser">Preferências</h2>
@@ -56,9 +59,9 @@ const User = () => {
             <img src={taxiIcon} alt="99" className={isTaxiSelected ? "appIconU selected" : "appIconU"}  />
           </label>
           <label className="labelError">{error}</label>
-          <button className="btn btn-secondary" onClick={savePreferences}>
+          <Button variant="dark" className="btn btn-secondary" onClick={savePreferences}>
             Salvar
-          </button>
+          </Button>
           <div className={`successMessage ${successMessage ? 'show-message' : ''}`}>
             {successMessage}
           </div>
@@ -70,10 +73,8 @@ const User = () => {
         <div className="modalU">
           <div className="modal-contentU d-flex justify-content-between">
             <h2 className="modalTitleU">Edição de Usuário</h2>
-            <label>Nome de usuário:</label>
+            <label>Novo Nome de usuário:</label>
             <input type="text" placeholder={user.name}/>
-            <label>Email:</label>
-            <input type="email" placeholder={user.email}/>
             <div>
               <Button variant="secondary" onClick={() => setShowModal(false)}>Cancelar</Button>
               <Button variant="dark" onClick={() => { setShowModal(false)}}>Confirmar</Button>
