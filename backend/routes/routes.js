@@ -7,36 +7,28 @@ const travelController = require('../controllers/travelController');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'DELETE'],
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 router.use(cors(corsOptions));
 
-router.get('/', (req, res) => {
-    res.send('Bem-vindo ao backend!');
-});
-
-router.get('/users', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erro ao buscar usuários.' });
-    }
-});
-
-router.post('/api/createUser', userController.createUser);
-
-router.post('/api/loginUser', userController.signin);
-
-router.get('/api/userDetails', userController.getUserDetails);
-
-router.post('/api/createTravel', travelController.createTravel);
+router.get('/', (req, res) => { res.send('Bem-vindo ao backend!'); });
 
 router.get('/api/getAllTravels', travelController.getAllTravels);
 
+router.post('/api/createUser', userController.createUser);
+
+router.post('/api/createTravel', travelController.createTravel);
+
+router.post('/api/loginUser', userController.signin);
+
 router.delete('/api/deleteTravelHistory/:userId', travelController.deleteTravelHistory);
+
+router.delete('/api/deleteUser/:id', userController.deleteUser);
+
+router.put('/api/editUser/:id', userController.editUser);
+
+router.put('/api/editPreferences/:id', userController.editPreferences);
 
 module.exports = router;

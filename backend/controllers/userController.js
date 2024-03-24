@@ -33,23 +33,63 @@ exports.signin = async (req, res) => {
       return res.status(401).json({ message: 'E-mail ou senha incorretos' });
     }
     
-    res.status(200).json({ email: user.email, name: user.name, id: user._id });
+    res.status(200).json({ id: user._id, name: user.name, email: user.email, apps: user.apps });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao fazer login.' });
   }
 };
 
-exports.getUserDetails = async (req, res) => {
+exports.editUser = async (req, res) => {
+  const { name, email, password } = req.body;
+  const userId = req.params.id;
+  
   try {
-    const userDetails = {
-      name: req.user.name,
-      email: req.user.email,
-    };
+    const updatedUser = await User.findByIdAndUpdate(userId, { name, email, password }, { new: true });
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
 
-    res.status(200).json(userDetails);
+    res.status(200).json({ message: 'Usuário atualizado com sucesso.', user: updatedUser });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro ao obter detalhes do usuário.' });
+    res.status(500).json({ message: 'Erro ao atualizar usuário.' });
   }
 };
+
+exports.deleteUser = async (req, res) => {
+  const userId = req.params.id;
+  
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    res.status(200).json({ message: 'Usuário excluído com sucesso.', user: deletedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao excluir usuário.' });
+  }
+};
+
+exports.editPreferences = async (req, res) => {
+  const userId = req.params.id;
+  const { apps } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    user.apps = apps;
+    await user.save();
+
+    res.status(200).json({ message: 'Preferências atualizadas com sucesso.'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao atualizar preferências do usuário.' });
+  }
+};
+

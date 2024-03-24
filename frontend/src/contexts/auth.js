@@ -61,28 +61,58 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user_token");
   };
 
-  const getUserDetails = async () => {
+  const editUser = async (newName) => {
     try {
       const userToken = localStorage.getItem("user_token");
       if (!userToken) {
         throw new Error("Token de usuário não encontrado");
       }
+  
+      const response = await fetch(`http://localhost:3001/api/editUser/${user.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`
+        },
+        body: JSON.stringify({ name: newName })
+      });
+  
+      if (!response.ok) {
+        throw new Error("Erro ao editar usuário");
+      }
+  
+      const updatedUser = await response.json();
+      setUser(updatedUser);
+      localStorage.setItem("user_token", JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error('Erro ao editar usuário:', error);
+      throw new Error('Erro ao editar usuário.');
+    }
+  };
 
-      const response = await fetch("http://localhost:3001/api/userDetails", {
-        method: "GET",
+  const deleteUser = async () => {
+    try {
+      const userToken = localStorage.getItem("user_token");
+      if (!userToken) {
+        throw new Error("Token de usuário não encontrado");
+      }
+  
+      const response = await fetch(`http://localhost:3001/api/deleteUser/${user.id}`, {
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${userToken}`
         }
       });
-
+  
       if (!response.ok) {
-        throw new Error("Erro ao buscar detalhes do usuário");
+        throw new Error("Erro ao excluir usuário");
       }
-
-      const userDetails = await response.json();
-      return userDetails;
+  
+      setUser(null);
+      localStorage.removeItem("user_token");
     } catch (error) {
-      throw new Error(error.message);
+      console.error('Erro ao excluir usuário:', error);
+      throw new Error('Erro ao excluir usuário.');
     }
   };
 
@@ -165,11 +195,49 @@ export const AuthProvider = ({ children }) => {
     }
   };  
 
+  const editPreferences = async (apps) => {
+    try {
+      const userToken = localStorage.getItem("user_token");
+      if (!userToken) {
+        throw new Error("Token de usuário não encontrado");
+      }
+
+      const response = await fetch(`http://localhost:3001/api/editPreferences/${user.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`
+        },
+        body: JSON.stringify({ apps })
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao editar preferências");
+      }
+
+    } catch (error) {
+      console.error('Erro ao editar preferências:', error);
+      throw new Error('Erro ao editar preferências.');
+    }
+  };
+
   return (
     <AuthContext.Provider
-    value={{ user, signed: !!user, signin, signup, signout, getUserDetails, createTravel, getAllTravels, deleteTravelHistory }}
+      value={{
+        user,
+        signed: !!user,
+        signin,
+        signup,
+        signout,
+        createTravel,
+        getAllTravels,
+        deleteTravelHistory,
+        editUser,
+        deleteUser,
+        editPreferences
+      }}
     >
       {children}
     </AuthContext.Provider>
-  );
+  );  
 };
