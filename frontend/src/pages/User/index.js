@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 const User = () => {
-  const { user, signout, editUser, deleteUser, deleteTravelHistory, editPreferences } = useAuth();
+  const { user, editUser, deleteUser, deleteTravelHistory, editPreferences } = useAuth();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -128,7 +128,7 @@ const User = () => {
               value={newUserName}
               onChange={(e) => setNewUserName(e.target.value)}
             />
-            <p>* Você deverá logar novamente para alteração ser realizada.</p>
+            <p>* Você poderá alterar futuramente se desejar.</p>
             <label className="labelError">{modalError}</label>
             <div>
               <Button variant="secondary" onClick={() => { 
@@ -143,8 +143,13 @@ const User = () => {
                 onClick={() => {
                   if (newUserName.trim() !== "") {
                     editUser(newUserName);
-                    signout()
-                    navigate("/")
+                    setModalError("");
+                    setNewUserName("");
+                    setShowModal(false)
+                    setSuccessMessage("Alterações salvas!");
+                    setTimeout(() => {
+                      setSuccessMessage("");
+                    }, 1000);
                   } else {
                     setModalError("Nome de usuário inválido");
                   }

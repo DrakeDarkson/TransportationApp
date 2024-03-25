@@ -49,8 +49,8 @@ exports.editUser = async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
-
-    res.status(200).json({ message: 'Usuário atualizado com sucesso.', user: updatedUser });
+    const user = await User.findById(userId);
+    res.status(200).json({ id: user._id, name: user.name, email: user.email, apps: user.apps });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao atualizar usuário.' });
@@ -86,7 +86,7 @@ exports.editPreferences = async (req, res) => {
     user.apps = apps;
     await user.save();
 
-    res.status(200).json({ message: 'Preferências atualizadas com sucesso.'});
+    res.status(200).json({ id: user._id, name: user.name, email: user.email, apps: user.apps });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao atualizar preferências do usuário.' });

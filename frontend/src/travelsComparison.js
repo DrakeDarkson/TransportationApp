@@ -52,14 +52,25 @@ function calculateTaxi99Price(distance, time) {
   return `${minPriceFormatted} - ${maxPriceFormatted}`;
 }
 
-function compareTravels(distance, time) {
+function compareTravels(distance, time, userApps) {
   const taxi99Price = calculateTaxi99Price(distance, time);
   const uberPrice = calculateUberPrice(distance, time);
 
-  if (uberPrice <= taxi99Price) {
+  const hasUberAccess = userApps.includes('Uber');
+  const hasTaxi99Access = userApps.includes('99');
+
+  if (hasUberAccess && hasTaxi99Access) {
+    if (uberPrice <= taxi99Price) {
+      return { app: 'uber', price: uberPrice };
+    } else {
+      return { app: '99', price: taxi99Price };
+    }
+  } else if (hasUberAccess) {
     return { app: 'uber', price: uberPrice };
-  } else {
+  } else if (hasTaxi99Access) {
     return { app: '99', price: taxi99Price };
+  } else {
+    return { app: 'Nenhum app disponível', price: '-' };
   }
 }
 

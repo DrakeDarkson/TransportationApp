@@ -81,9 +81,9 @@ export const AuthProvider = ({ children }) => {
         throw new Error("Erro ao editar usuário");
       }
   
-      const updatedUser = await response.json();
-      setUser(updatedUser);
-      localStorage.setItem("user_token", JSON.stringify(updatedUser));
+      const userData = await response.json();
+      setUser(userData);
+      localStorage.setItem("user_token", JSON.stringify(userData));
     } catch (error) {
       console.error('Erro ao editar usuário:', error);
       throw new Error('Erro ao editar usuário.');
@@ -215,6 +215,9 @@ export const AuthProvider = ({ children }) => {
         throw new Error("Erro ao editar preferências");
       }
 
+      const userData = await response.json();
+      setUser(userData);
+      localStorage.setItem("user_token", JSON.stringify(userData));
     } catch (error) {
       console.error('Erro ao editar preferências:', error);
       throw new Error('Erro ao editar preferências.');
