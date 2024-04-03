@@ -11,10 +11,10 @@ function calculateUberPrice(distance, time) {
   const timePrice = perMinutePrice * time;
   const finalPrice = Math.max(totalPrice, minPrice + timePrice);
 
-  let dynamicPriceFactor = 1.0;
+  let dynamicPriceFactor = 1.25;
 
   if (currentTime >= 22 || currentTime <= 10) {
-    dynamicPriceFactor = 1.25;
+    dynamicPriceFactor = 1.5;
   }
 
   const minPriceWithDynamic = finalPrice * dynamicPriceFactor * 0.75;
@@ -37,10 +37,10 @@ function calculateTaxi99Price(distance, time) {
   const timePrice = perMinutePrice * time;
   const finalPrice = Math.max(totalPrice, minPrice + timePrice);
 
-  let dynamicPriceFactor = 1.0;
+  let dynamicPriceFactor = 1.25;
 
   if (currentTime > 10 && currentTime < 22) {
-    dynamicPriceFactor = 1.25;
+    dynamicPriceFactor = 1.5;
   }
 
   const minPriceWithDynamic = finalPrice * dynamicPriceFactor * 0.75;
